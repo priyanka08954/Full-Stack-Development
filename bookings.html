@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Bookings - DreamLens Photography</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #ff7e5f;
+      color: white;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    @media (max-width: 600px) {
+      th, td {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>All Bookings - DreamLens Photography</h1>
+  </header>
+
+  <div class="container">
+    <h2>Booking Details</h2>
+    <table id="bookingsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Type</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Date</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Bookings will be inserted here dynamically -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    async function fetchBookings() {
+      try {
+        const response = await fetch("/api/bookings");
+        const bookings = await response.json();
+
+        const tbody = document.querySelector("#bookingsTable tbody");
+        tbody.innerHTML = ""; // clear any existing rows
+
+        bookings.forEach(booking => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${booking.id}</td>
+            <td>${booking.type}</td>
+            <td>${booking.name}</td>
+            <td>${booking.email}</td>
+            <td>${booking.date}</td>
+            <td>${booking.message || "-"}</td>
+          `;
+          tbody.appendChild(row);
+        });
+      } catch (err) {
+        console.error("Error fetching bookings:", err);
+        const tbody = document.querySelector("#bookingsTable tbody");
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:red;">Error loading bookings</td></tr>`;
+      }
+    }
+
+    // Fetch bookings when page loads
+    window.addEventListener("DOMContentLoaded", fetchBookings);
+  </script>
+</body>
+</html>
