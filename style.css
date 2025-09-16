@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f0f0f0;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(to right, #ff7e5f, #feb47b);
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.booking-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.booking-form input, 
+.booking-form textarea, 
+.booking-form button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+.booking-form button {
+  background: #ff7e5f;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.booking-form button:hover {
+  background: #feb47b;
+}
+
+.confirmation {
+  margin-top: 1rem;
+  color: green;
+  font-weight: bold;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamLens Photography</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>✨ DreamLens Photography</h1>
+    <p>Capture your moments. Book your shoot today!</p>
+  </header>
+
+  <div class="container">
+    <!-- Gallery Section -->
+    <h2>Our Work</h2>
+    <div class="gallery">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.RC6B19aAIwugxbtWNJ7QvQHaE8?pid=Api&P=0&h=180" alt="Wedding">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.cypw3n2tpxQkKC54cy1KBwHaEn?pid=Api&P=0&h=180" alt="Nature">
+      <img src="https://tse1.mm.bing.net/th/id/OIP.vaKl5XlvOIBPbvtdCMJGKwHaE8?pid=Api&P=0&h=180" alt="Fashion">
+      <img src="https://tse1.mm.bing.net/th/id/OIP.S2RxWzfjKV9fN9wdtgS9ZAHaE8?pid=Api&P=0&h=180" alt="Event Photography">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.IbtO39NK_PcRAXDvodDuggHaES?pid=Api&P=0&h=180" alt="Product Photography">
+      <img src="https://tse3.mm.bing.net/th/id/OIP.wxUGkt5OeUbjfPxbXz3NwgHaEM?pid=Api&P=0&h=180" alt="Travel Photography">
+      <img src="https://tse2.mm.bing.net/th/id/OIP.jri4ykFR1gOR9B3nA20fogHaE8?pid=Api&P=0&h=180" alt="Maternity & Baby Photography">
+    </div>
+
+    <!-- Booking Form -->
+    <div class="booking-form">
+      <h2>📅 Book Your Session</h2>
+      <form id="bookingForm">
+        <input type="text" name="type" placeholder="Photography Type (e.g., Wedding)" required>
+        <input type="text" name="name" placeholder="Your Full Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="date" name="date" required>
+        <textarea name="message" rows="4" placeholder="Additional details (optional)"></textarea>
+        <button type="submit">Confirm Booking</button>
+      </form>
+
+      <div class="confirmation" id="confirmationMsg" style="display:none;">
+        ✅ Thank you! Your booking has been received. We’ll contact you soon.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        type: e.target.type.value,
+        name: e.target.name.value,
+        email: e.target.email.value,
+        date: e.target.date.value,
+        message: e.target.message.value
+      };
+
+      try {
+        const res = await fetch("/api/bookings", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        });
+
+        const data = await res.json();
+        document.getElementById("confirmationMsg").style.display = "block";
+        document.getElementById("confirmationMsg").innerText =
+          "✅ Booking saved! ID: " + data.id;
+        e.target.reset();
+      } catch (err) {
+        alert("❌ Error saving booking. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
